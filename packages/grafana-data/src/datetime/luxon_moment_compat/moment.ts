@@ -758,7 +758,9 @@ function normalizeZone(zone: string | Zone): Zone {
   }
 
   const name = normalizeZoneName(zone);
-  if (name === 'UTC') {
+  // moment-timezone keeps unknown zones (e.g. the dashboard 'default' time zone) in UTC instead of
+  // producing invalid dates
+  if (name === 'UTC' || !IANAZone.isValidZone(name)) {
     return FixedOffsetZone.instance(0);
   }
 

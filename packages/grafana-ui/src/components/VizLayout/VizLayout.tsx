@@ -68,7 +68,8 @@ export const VizLayout: VizLayoutComponentType = ({ width, height, legend, child
       containerStyle.flexDirection = 'column';
       legendStyle.maxHeight = maxHeight;
 
-      if (legendMeasure.height) {
+      // a legend that renders nothing measures 0 height; the chart must still render (see fallback below)
+      if (legendMeasure) {
         size = { width, height: height - legendMeasure.height };
       }
       break;
